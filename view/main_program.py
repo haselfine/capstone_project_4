@@ -6,5 +6,9 @@ def main():
     #TODO store game info
     pass
 
+
+def search_game_request(game_name):
+    return 'placeholder'
+
 if __name__ == '__main__':
     main()
