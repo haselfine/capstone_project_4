@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>{{ game_title }}</title>
+    <link rel="stylesheet" href="{{ url_for("static", filename="sakura.css") }}" type="text/css">
+    <link rel="shortcut icon" href="{{ url_for("static", filename="favicon.ico") }}">
+  </head>
+  <body>
+    <h1>{{ game_title }}</h1>
+    
+    <div class="box">
+      <div><img src="{{ image_url }}" alt="{{ game_title }} Poster"></div>
+      <div>
+        <ul style="list-style-type:none">
+          <li>Detail about Game</li>
+          <li>Another Detail</li>
+          <li>Detail Number Three</li>
+          <li>Yet Another Detail</li>
+          <li>Details Galore</li>
+        </ul>
+      </div>
+    </div>
+  
+  </body>
+</html>
