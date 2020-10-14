@@ -26,3 +26,23 @@ def delete_game(game_id_in):
         return Game.delete().where(Game.game_id == game_id_in).execute()
     except DatabaseError:
         return 'Sorry. There was an error deleting the artwork'
+
+
+ 
+        
+        
+        
+        
+            
+        
+            
+    
+        
+            
+           
+                
+            
+                
+
+        
+        
