@@ -1,2 +1,3 @@
-flask/__pychache__
 env/
+flask/__pycache__
+twitch_auth

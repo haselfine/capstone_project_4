@@ -10,16 +10,16 @@ def add_game(title_in, image_url_in):
 
 def find_game(title_in):
     try:
-        searched_game = Game.get_or_none(Game.game_title == title_in)
+        searched_game = Game.get_or_none(Game.title == title_in)
         return searched_game
     except DatabaseError:
         return 'Sorry. There was an error retrieving the game.'
 
-def get_all_games(game_id_in):
+def get_all_games():
     try:
-        return Game.select().where(Game.game_id == game_id_in)
+        return Game.select()
     except DatabaseError:
-        return 'Sorry. There was an error retrieving the game'
+        return 'Sorry. There was an error retrieving the games'
 
 def delete_game(game_id_in):
     try:
