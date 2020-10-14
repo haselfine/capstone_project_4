@@ -9,7 +9,8 @@ html {
   font-family: serif; }
   
 .box {
-  display: flex; }
+  display: flex; 
+}
 
 body {
   font-size: 1.7rem;
