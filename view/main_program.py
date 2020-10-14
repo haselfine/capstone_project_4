@@ -1,12 +1,18 @@
-from capstone_project_4.viewmodel import *
+from project_4.viewmodel import *
+import logging
 import os
 from pprint import pprint
 import requests
+
+
+logging.basicConfig(filename='debug.log', level=logging.DEBUG, format=f'%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+
 
 def main():
     #TODO connect to APIs
     #TODO search games in Steam, Twitch.tv
     #TODO store game info
+    search_game_request('halo')
     pass
 
 
@@ -28,8 +34,10 @@ def search_game_request(game_name):
 
     except Exception as e:
         return 'Failed'
+        logging.error(f'No response recieved '+ e)
         #todo add logging for the error 
 
+    pprint(game_list)
     return game_list
     
 
