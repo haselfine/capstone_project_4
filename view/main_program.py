@@ -1,4 +1,4 @@
-# from project_4.viewmodel import *
+from capstone_project_4.viewmodel import *
 import os
 from pprint import pprint
 import requests
