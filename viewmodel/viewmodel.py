@@ -15,11 +15,11 @@ def find_game(title_in):
     except DatabaseError:
         return 'Sorry. There was an error retrieving the game.'
 
-def get_all_games(game_id_in):
+def get_all_games():
     try:
-        return Game.select().where(Game.game_id == game_id_in)
+        return Game.select()
     except DatabaseError:
-        return 'Sorry. There was an error retrieving the game'
+        return 'Sorry. There was an error retrieving the games'
 
 def delete_game(game_id_in):
     try:
