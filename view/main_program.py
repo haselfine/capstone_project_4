@@ -12,7 +12,6 @@ def main():
     #TODO connect to APIs
     #TODO search games in Steam, Twitch.tv
     #TODO store game info
-    search_game_request('halo')
     pass
 
 
@@ -37,7 +36,6 @@ def search_game_request(game_name):
         logging.error(f'No response recieved '+ e)
         #todo add logging for the error 
 
-    pprint(game_list)
     return game_list
     
 
