@@ -7,7 +7,6 @@ def main():
     #TODO connect to APIs
     #TODO search games in Steam, Twitch.tv
     #TODO store game info
-
     pass
 
 
@@ -15,8 +14,12 @@ def main():
 #If there was an error encouterd it will return "Failed" instead, if no games were found it will return an empty list
 def search_game_request(game_name):
 
+
+    client_id = os.environ.get('CLIENT_ID')
+    auth = os.environ.get('AUTHORIZATION')
+    
     url = 'https://api.igdb.com/v4/search'
-    header_data = {'Client-ID':'oeo0x5v3bza05utlsgajehq2elvg6t', 'Authorization':'Bearer qa788f01fsmbzn1skgydmzc4vylpwz'}
+    header_data = {'Client-ID': client_id, 'Authorization': auth}
     body_data = f'search "{game_name}"; fields name;'
 
     try:
