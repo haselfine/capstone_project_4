@@ -8,9 +8,6 @@ def main():
     #TODO search games in Steam, Twitch.tv
     #TODO store game info
 
-
-    game_list = search_game_request(input('Enter game name'))
-    pprint(game_list)
     pass
 
 
