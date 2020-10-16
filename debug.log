@@ -1,0 +1,7 @@
+2020-10-16 01:10:36,612 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): api.igdb.com:443
+2020-10-16 01:10:36,768 - urllib3.connectionpool - DEBUG - https://api.igdb.com:443 "POST /v4/covers HTTP/1.1" 401 26
+2020-10-16 01:11:10,089 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): api.igdb.com:443
+2020-10-16 01:11:10,340 - urllib3.connectionpool - DEBUG - https://api.igdb.com:443 "POST /v4/covers HTTP/1.1" 401 26
+2020-10-16 01:11:22,723 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): api.igdb.com:443
+2020-10-16 01:11:22,872 - urllib3.connectionpool - DEBUG - https://api.igdb.com:443 "POST /v4/covers HTTP/1.1" 401 26
+2020-10-16 01:11:22,874 - root - ERROR - Something went wrong when calling the API: 'dict' object has no attribute 'url'
