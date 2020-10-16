@@ -1,4 +1,4 @@
-from project_4.viewmodel import *
+# from project_4.viewmodel import *
 import logging
 import os
 from pprint import pprint
@@ -12,6 +12,8 @@ def main():
     #TODO connect to APIs
     #TODO search games in Steam, Twitch.tv
     #TODO store game info
+    search_game_request('halo')
+    external_game_search(280467)
     pass
 
 
@@ -35,9 +37,27 @@ def search_game_request(game_name):
         return None
         logging.error(f'No response recieved '+ e)
         #todo add logging for the error 
+    pprint(game_list)
 
     return game_list
     
+def external_game_search(game_id):
+
+    client_id = os.environ.get('CLIENT_ID')
+    auth = os.environ.get('AUTHORIZATION')
+    
+    url = 'https://api.igdb.com/v4/external_games'
+    header_data = {'Client-ID': client_id, 'Authorization': auth}
+    body_data = f'game "{game_id}"; fields name;'
+
+    try:
+        res = requests.post(url, data = body_data, headers = header_data)
+        game_info = res.json()
+    except Exception as e:
+        return None 
+        logging.error(f'No response recieved ' + e)
+
+    pprint(game_info)
 
 if __name__ == '__main__':
     main()
