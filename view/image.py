@@ -11,17 +11,20 @@ def call_api_covers(game_id):
     header_dict = {'Client-ID': client, 'Authorization': api_auth}
     search_data = f'fields url; where game = {game_id};'
 
-    try:
-        api_request = requests.post(url, data=search_data, headers=header_dict)
-        cover = api_request.json()
-        create_image_link(cover)
-    except Exception as e:
-        logging.error(f'Something went wrong when calling the API: {e}')
-        return None
+    if header_dict['Client-ID'] is not None and header_dict['Authorization'] is not None:
+        try:
+            api_request = requests.post(url, data=search_data, headers=header_dict)
+            data = api_request.json()
+        except Exception as e:
+            logging.error(f'Something went wrong when calling the API: {e}')
+            error = ('Error', data)
+            return error
+        create_image_link(data)
+    else:
+        error = ('Error', 'Need client-id and authorization key.')
+        return error
 
-def create_image_link(cover):
-    base_url = cover.url.replace('t_thumb', 't_720p')
-    final_url = base_url[:2]
-    print(final_url)
-
-call_api_covers(1000)
+def create_image_link(data):
+    base_url = data[0]['url'].replace('t_thumb', 't_720p')
+    final_url = base_url[2:]
+    return final_url
