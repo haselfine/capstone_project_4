@@ -1,3 +1,4 @@
 env/
 flask/__pycache__
 twitch_auth
+debug.log
