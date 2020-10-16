@@ -12,7 +12,6 @@ def main():
     #TODO connect to APIs
     #TODO search games in Steam, Twitch.tv
     #TODO store game info
-    get_game_urls(990)
     pass
 
 
@@ -35,7 +34,6 @@ def search_game_request(game_name):
     except Exception as e:
         return None
         logging.error(f'No response recieved '+ e)
-        #todo add logging for the error 
 
     return game_list
 
@@ -59,7 +57,6 @@ def get_game_urls(game_id):
     except Exception as e:
         return None
         logging.error(f'No response recieved '+ e)
-        #todo add logging for the error 
 
     return url_list
     
