@@ -18,15 +18,17 @@ sample_image_url = 'https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2F
 def start():
     app.run()
 
-@app.route('/')
+@app.route('/') # GET requests
 def home():
     return render_template('home.html')
 
 @app.route('/', methods=['POST'])
 def search_results():
-    return render_template('home.html', list_heading='Search Results:', search_results=sample_results)
+    search_term = request.form["search"]
+    results = sample_results
+    return render_template('home.html', list_heading='Search Results:', search_results=results)
 
 @app.route('/game/<game_title>')
 def game(game_title):
-    # TODO: replace sample_image_url with actual image url from API
+    # TODO: replace sample_image_url with actual image url from API (through TinyPNG?)
     return render_template('game.html', game_title=game_title, image_url=sample_image_url)

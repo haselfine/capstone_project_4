@@ -7,7 +7,15 @@
     <link rel="shortcut icon" href="{{ url_for("static", filename="favicon.ico") }}">
   </head>
   <body>
-    <h1>{{ game_title }}</h1>
+  
+    <a href="/">Return Home</a>
+  
+    <div class="box" style="justify-content:space-between">
+      <div><h1>{{ game_title }}</h1></div>
+      <div style="align-self:center">
+        <button type="button" onclick="alert('Bookmarking {{ game_title }}')">Bookmark {{ game_title }}</button>
+      </div>
+    </div>
     
     <div class="box">
       <div><img src="{{ image_url }}" alt="{{ game_title }} Poster"></div>
