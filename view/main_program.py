@@ -22,7 +22,7 @@ def search_game_request(game_name):
     client_id = os.environ.get('CLIENT_ID')
     auth = os.environ.get('AUTHORIZATION')
     
-    url = 'https://api.igdb.com/v4/search'
+    url = 'https://api.igdb.com/v4/games'
     header_data = {'Client-ID': client_id, 'Authorization': auth}
     body_data = f'search "{game_name}"; fields name;'
 

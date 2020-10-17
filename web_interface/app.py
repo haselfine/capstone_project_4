@@ -67,7 +67,6 @@ def search_for_game(search_term):
         results = []
         for game in response[0]:
             search_result = SearchResult(game_title=game['name'], game_id=game['id'])
-            print(search_result)
             results.append(search_result)
             
         return results
