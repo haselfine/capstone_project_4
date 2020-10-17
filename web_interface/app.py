@@ -8,8 +8,6 @@ from flask import Flask, request, render_template
 from dataclasses import dataclass
 from project_4.view.main_program import *
 from project_4.view.image import *
-import os
-
 
 app = Flask(__name__)
 client = os.environ.get('CLIENT_ID')
@@ -42,17 +40,38 @@ def home():
 @app.route('/', methods=['POST'])
 def search_results():
     search_term = request.form["search"]
-    results = sample_results
-    return render_template('home.html', list_heading='Search Results:', search_results=results)
-
-@app.route('/game/<game_title>&<game_id>')
-def game(game_title, game_id):
-    # TODO: replace sample_image_url with actual image url from API (through TinyPNG?)
-    poster_url = call_api_covers(game_id)[0]
+    results = search_for_game(search_term)
+    #results = sample_results
     
+    if results is not None and len(results) > 0:
+        return render_template('home.html', list_heading='Search Results:', search_results=results)
+    else:
+        return render_template('home.html', list_heading='No Results Found')
+
+@app.route('/game/<game_title>&<game_id>') # TODO: get title from request to API, not by including in url
+def game(game_title, game_id):
+    poster_request = call_api_covers(game_id)
+    
+    if poster_request[0] is not None:
+        poster_url = poster_request[0]
+    else:
+        poster_url = None
+        
     return render_template('game.html', game_title=game_title, image_url=poster_url)
 
 
-#def search_for_game(search_term):
+def search_for_game(search_term):
+    response = search_game_request(search_term)
     
+    if response[0] is not None: # check if there was an error message
+        results = []
+        for game in response[0]:
+            search_result = SearchResult(game_title=game['name'], game_id=game['id'])
+            print(search_result)
+            results.append(search_result)
+            
+        return results
+    
+    else:
+        return None
     

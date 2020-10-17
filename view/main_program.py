@@ -19,7 +19,6 @@ def main():
 #If there was an error encouterd it will return "Failed" instead, if no games were found it will return an empty list
 def search_game_request(game_name):
 
-
     client_id = os.environ.get('CLIENT_ID')
     auth = os.environ.get('AUTHORIZATION')
     
