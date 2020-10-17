@@ -20,9 +20,9 @@
     <h3>{{ list_heading }}</h3>
 
     {# display results of search in a list #}
-    {% for game_title in search_results %}
+    {% for game in search_results %}
         <li style="list-style-type:none">
-            <a href="/game/{{ game_title }}">{{ game_title }}</a>
+            <a href="/game/{{game.game_title}}&{{ game.game_id }}">{{ game.game_title }}</a>
         </li>
     {% endfor %}
   

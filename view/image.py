@@ -15,14 +15,17 @@ def call_api_covers(game_id):
         try:
             api_request = requests.post(url, data=search_data, headers=header_dict)
             data = api_request.json()
+            
         except Exception as e:
             logging.error(f'Something went wrong when calling the API: {e}')
             error = ('Error', data)
-            return error
-        create_image_link(data)
+            return None, error
+        
+        return create_image_link(data), None
+    
     else:
         error = ('Error', 'Need client-id and authorization key.')
-        return error
+        return None, error
 
 def create_image_link(data):
     base_url = data[0]['url'].replace('t_thumb', 't_720p')

@@ -32,11 +32,12 @@ def search_game_request(game_name):
         game_list = res.json()
 
     except Exception as e:
-        return None
+        error = f'No response recieved '+ e
+        return None, error
         logging.error(f'No response recieved '+ e)
         #todo add logging for the error 
 
-    return game_list
+    return game_list, None
     
 
 if __name__ == '__main__':

@@ -1,3 +1,6 @@
 env/
-flask/__pycache__
+web_interface/__pycache__
 twitch_auth
+__pycache__
+view/__pycache__
+viewmodel/__pycache__
