@@ -30,7 +30,6 @@ def home():
 def search_results():
     search_term = request.form["search"]
     results = search_for_game(search_term)
-    #results = sample_results
     
     if results is not None and len(results) > 0:
         return render_template('home.html', list_heading='Search Results:', search_results=results)

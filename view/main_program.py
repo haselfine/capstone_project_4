@@ -29,14 +29,18 @@ def search_game_request(game_name):
     try:
         res = requests.post(url, data = body_data, headers = header_data)
         game_list = res.json()
+        
+        if "Message" not in game_list:  # failed searches will contain an error message
+            return game_list, None
+        else:
+            error = 'Search failed: ' + e
+            logging.error(error)
+            return None, error
 
     except Exception as e:
-        error = f'No response recieved '+ e
+        error = 'No response recieved ' + e
+        logging.error(error)
         return None, error
-        logging.error(f'No response recieved '+ e)
-        #todo add logging for the error 
-
-    return game_list, None
     
 
 if __name__ == '__main__':
