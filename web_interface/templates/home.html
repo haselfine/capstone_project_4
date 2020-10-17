@@ -12,8 +12,8 @@
     {# post the contents of the search bar #}
     <label for="search">Search for a game:</label>
     <form method = "POST">
-        <input name="search" required maxlength="50">
-        <input type="submit" value="Search">
+        <input name="search" required maxlength="50" value="{{ search_term }}"></input>
+        <input type="submit" value="Search"></input>
         <a href="/"></a>
     </form>
 

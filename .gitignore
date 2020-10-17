@@ -5,3 +5,4 @@ __pycache__
 view/__pycache__
 viewmodel/__pycache__
 debug.log
+model/__pycache__

@@ -32,7 +32,7 @@ def search_results():
     results = search_for_game(search_term)
     
     if results is not None and len(results) > 0:
-        return render_template('home.html', list_heading='Search Results:', search_results=results)
+        return render_template('home.html', search_term=search_term, list_heading='Search Results:', search_results=results)
     else:
         return render_template('home.html', list_heading='No Results Found')
 
