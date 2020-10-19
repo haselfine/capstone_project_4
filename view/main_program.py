@@ -39,14 +39,14 @@ def search_game_request(game_name):
     return game_list
 
 
-def get_current_streamer_from_twitch(channel):
+def get_current_streamer_from_twitch(user_id):
 
-    url = 'https://api.twitch.tv/helix/search'
+    url = 'https://api.twitch.tv/helix/streams'
     clientid = os.environ.get('Client_id')
     auth_key = os.environ.get('authorization')
     
     Api_headers = {'Client_id': clientid, 'authorization': auth_key}
-    streamer_search = f'fields name; search {channel};'
+    streamer_search = f'fields id; where user = {user_id};'
     try:
         response = requests.post(url, data = streamer_search, headers = Api_headers)
         jsondata = response.json()
