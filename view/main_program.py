@@ -13,8 +13,7 @@ def main():
     #TODO search games in Steam, Twitch.tv
     #TODO store game info
     # get_game_urls(990)
-    # get_game_info(990)
-    get_platforms([160,203])
+    get_game_info(990)
     pass
 
 
@@ -40,29 +39,9 @@ def search_game_request(game_name):
 
     return game_list
 
-
-# take the game id input and returns a list of urls associated with it
-#If there was an error encouterd it will return None instead, if no games were found it will return an empty list
-def get_game_urls(game_id):
-
-
-    client_id = os.environ.get('CLIENT_ID')
-    auth = os.environ.get('AUTHORIZATION')
     
-    url = 'https://api.igdb.com/v4/websites'
-    header_data = {'Client-ID': client_id, 'Authorization': auth}
-    body_data = f'fields url; where game = {game_id};'
-
-    try:
-        res = requests.post(url, data = body_data, headers = header_data)
-        url_list = res.json()
-
-    except Exception as e:
-        return None
-        logging.error(f'No response recieved ' + e)
-
-    return url_list
-    
+# funtion that takes the game id, and returns a list containing one dictionary that includes
+# all the data 
 def get_game_info(game_id):
 
     client_id = os.environ.get('CLIENT_ID')
@@ -70,7 +49,7 @@ def get_game_info(game_id):
 
     url = 'https://api.igdb.com/v4/games'
     header_data = {'Client-ID': client_id, 'Authorization': auth}
-    body_data = f'fields name, rating, summary, platforms, first_release_date, cover; where id = {game_id};'
+    body_data = f'fields name, rating, platforms.name, summary, first_release_date, cover.url, websites.url; where id = {game_id};'
     
     try:
 
@@ -79,38 +58,14 @@ def get_game_info(game_id):
     except Exception as e:
         return None
         logging.error(f'No response recieved ' + e)
-
+    
     return game_info
 
 
-def get_platforms(platforms_list):
-
-    client_id = os.environ.get('CLIENT_ID')
-    auth = os.environ.get('AUTHORIZATION')
-
-    platforms_string = ''
-
-    for i,platform in enumerate(platforms_list):
-
-        if i != len(platforms_list)-1:
-
-            platforms_string = f'{platforms_string} id = {platform} |'
-
-        else:
-
-            platforms_string = f'{platforms_string} id = {platform};'
 
 
-    url = 'https://api.igdb.com/v4/platforms'
-    header_data = {'Client-ID': client_id, 'Authorization': auth}
-    body_data = f'fields name,platform_logo; where {platforms_string}'
-    
-    try:
-        res = requests.post(url, data = body_data, headers = header_data)
-        platform_data = res.json()
-    except:
 
-    pprint(platform_data)
+
 
 
 if __name__ == '__main__':
