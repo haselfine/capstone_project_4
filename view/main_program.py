@@ -37,6 +37,35 @@ def search_game_request(game_name):
         #todo add logging for the error 
 
     return game_list
+
+
+def get_current_streamer_from_twitch(channel):
+
+    url = 'https://api.twitch.tv/helix/search'
+    clientid = os.environ.get('Client_id')
+    auth_key = os.environ.get('authorization')
+    
+    Api_headers = {'Client_id': clientid, 'authorization': auth_key}
+    streamer_search = f'fields name; search {channel};'
+    try:
+        response = requests.post(url, data = streamer_search, headers = Api_headers)
+        jsondata = response.json()
+        if 'stream' in jsondata:
+            if jsondata['stream'] is not None: #stream is online
+                return True
+            else:
+                return False
+    except Exception as e:
+        logging.error(f'Error checking user: ', e)
+        return False
+        
+
+       
+
+
+
+
+
     
 
 if __name__ == '__main__':
