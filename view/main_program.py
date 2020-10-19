@@ -60,6 +60,14 @@ def get_game_urls(game_id):
 
     return url_list
     
+def get_game_info(game_id):
+
+    client_id = os.environ.get('CLIENT_ID')
+    auth = os.environ.get('AUTHORIZATION')
+
+    url = 'https://api.igdb.com/v4/websites'
+    header_data = {'Client-ID': client_id, 'Authorization': auth}
+    body_data = f'fields rating, summary, websites; where game = {game_id};'
 
 if __name__ == '__main__':
     main()
