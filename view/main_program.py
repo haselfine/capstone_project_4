@@ -58,7 +58,7 @@ def get_game_info(game_id):
     except Exception as e:
         return None
         logging.error(f'No response recieved ' + e)
-    
+
     return game_info
 
 
