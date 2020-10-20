@@ -1,4 +1,4 @@
-from project_4.viewmodel import *
+# from project_4.viewmodel import *
 import logging
 import os
 from pprint import pprint
@@ -38,10 +38,9 @@ def search_game_request(game_name):
             return None, error
 
     except Exception as e:
-        error = 'No response recieved ' + e
+        error = 'An error occurred: ' + e
         logging.error(error)
         return None, error
-    
 
 if __name__ == '__main__':
     main()
