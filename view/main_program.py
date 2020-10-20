@@ -19,7 +19,6 @@ def main():
 #If there was an error encouterd it will return "Failed" instead, if no games were found it will return an empty list
 def search_game_request(game_name):
 
-
     client_id = os.environ.get('CLIENT_ID')
     auth = os.environ.get('AUTHORIZATION')
     
@@ -30,13 +29,18 @@ def search_game_request(game_name):
     try:
         res = requests.post(url, data = body_data, headers = header_data)
         game_list = res.json()
+        
+        if 'message' not in game_list:  # failed searches will contain an error message
+            return game_list, None
+        else:
+            error = 'Search failed: ' + game_list['message']
+            logging.error(error)
+            return None, error
 
     except Exception as e:
-        return None
-        logging.error(f'No response recieved '+ e)
-
-    return game_list
-    
+        error = 'An error occurred: ' + e
+        logging.error(error)
+        return None, error
 
 if __name__ == '__main__':
     main()
