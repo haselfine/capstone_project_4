@@ -1,4 +1,4 @@
-from project_4.viewmodel import *
+# from project_4.viewmodel import *
 import logging
 import os
 from pprint import pprint
@@ -23,7 +23,7 @@ def search_game_request(game_name):
     client_id = os.environ.get('CLIENT_ID')
     auth = os.environ.get('AUTHORIZATION')
     
-    url = 'https://api.igdb.com/v4/search'
+    url = 'https://api.igdb.com/v4/games'
     header_data = {'Client-ID': client_id, 'Authorization': auth}
     body_data = f'search "{game_name}"; fields name;'
 
@@ -34,7 +34,6 @@ def search_game_request(game_name):
     except Exception as e:
         return None
         logging.error(f'No response recieved '+ e)
-        #todo add logging for the error 
 
     return game_list
     
