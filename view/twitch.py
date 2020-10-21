@@ -12,7 +12,7 @@ def get_twitch_game_id(game_name): #needs official game name from IGDB can't jus
     try:
         response = requests.get(url, headers=header_dict)
         data = response.json()
-        return (data['data'][0]['id'])
+        return data['data'][0]['id']
     except Exception as e:
         logging.error(f'Something went wrong when calling the API: {e}')
         error = ('Error', data)
