@@ -41,23 +41,20 @@ def search_game_request(game_name):
 
 def get_current_streamer_from_twitch(game_id):
 
-    url = 'https://api.twitch.tv/helix/streams'
-    clientid = os.environ.get('Client_id')
-    auth_key = os.environ.get('authorization')
+    url = f'https://api.twitch.tv/helix/streams?game_id={game_id}'
+    client_id = os.environ.get('CLIENT_ID')
+    auth_key = os.environ.get('AUTHORIZATION')
     
-    Api_headers = {'Client_id': clientid, 'authorization': auth_key}
-    streamer_search = f'fields id; where user = {game_id};'
+    Api_headers = {'Client-ID': client_id, 'Authorization': auth_key}
+    
     try:
-        response = requests.post(url, data = streamer_search, headers = Api_headers)
+        response = requests.get(url, headers = Api_headers)
         jsondata = response.json()
-        if 'stream' in jsondata:
-            if jsondata['stream'] is not None: #stream is online
-                return True
-            else:
-                return False
+        return jsondata
+
     except Exception as e:
         logging.error(f'Error checking user: ', e)
-        return False
+        
         
 
        
