@@ -7,7 +7,7 @@ auth = os.environ.get('AUTHORIZATION')
 
 def get_twitch_game_id(game_name): #needs official game name from IGDB can't just be search
     url = f'https://api.twitch.tv/helix/games?name={game_name}'
-    header_dict = {'Client-ID': client_id, 'Authorization': "Bearer " + auth}
+    header_dict = {'Client-ID': client_id, 'Authorization': auth}
 
     try:
         response = requests.get(url, headers=header_dict)
