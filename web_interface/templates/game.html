@@ -10,14 +10,21 @@
         $(document).ready(function(){
             var bookmarked = {{ bookmarked }};
             if (bookmarked){
-                $('button').hide();
+                $("button").hide();
+                $("small").html("{{ game_title }} is bookmarked.");
             }
         
-            $('button').click(function(){
-                var confirmed = confirm('Bookmark {{ game_title }}?');
+            $("button").click(function(){
+                var confirmed = confirm("Bookmark {{ game_title }}?");
                 if (confirmed) {
-                    $('small').html('Bookmarked {{ game_title }}!');
-                    $('button').hide();
+                    $.post("/add_bookmark", {
+                        game_title: "{{ game_title }}",
+                        image_url: "{{ image_url }}"
+                    },
+                    function(data){ // function run if post is successful
+                        $("button").hide();
+                        $("small").html("Bookmarked {{ game_title }}!");
+                    });
                 }
             });
         });
