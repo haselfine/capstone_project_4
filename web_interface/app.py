@@ -43,14 +43,21 @@ def search_results():
 
 @app.route('/game/<game_title>&<game_id>') # TODO: get title from request to API, not by including in url
 def game(game_title, game_id):
-    poster_request = call_api_covers(game_id)
+    bookmark = find_game(game_title)[0] # see if game is bookmarked
+
+    if bookmark is None:
+        bookmarked = 'false'
+        poster_request = call_api_covers(game_id)
+    else:
+        bookmarked = 'true'
+        poster_request = bookmark.image_url
     
     if poster_request[0] is not None:
         poster_url = poster_request[0]
     else:
         poster_url = None
         
-    return render_template('game.html', game_title=game_title, image_url=poster_url)
+    return render_template('game.html', game_title=game_title, image_url=poster_url, bookmarked=bookmarked)
 
 
 @app.route('/bookmarks')
