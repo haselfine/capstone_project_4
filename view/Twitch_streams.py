@@ -3,27 +3,18 @@ import requests
 import os
 import json
 
-url = 'https://api.twitch.tv/helix/streams'
-client_id = os.environ.get('CLIENT_ID')
-auth_key = os.environ.get('AUTHORIZATION')
+def get_streamrs_data_from_twitch(game_id):
+    url = f'https://api.twitch.tv/helix/streams?game_id={game_id}'
+    client_id = os.environ.get('CLIENT_ID')
+    key_auth = os.environ.get('AUTHORIZATION')
 
-Api_headers = {'Client-ID': client_id , 'Authorization': auth_key}
-
-def get_live_stream_data(game_id):
-    query =f'{game_id}' 
-    response = requests.get(url,  headers = Api_headers)
-    streamer_data = response.json()
-    return streamer_data
-
-def get_streamer_name_url(streamer_data):
-    mylist = []
+    header = {'Client-ID': client_id, 'Authorization': key_auth}
     
-    result = streamer_data['data']
-    for  stream in result:
-      
-        streamer_name = stream['user_name']
-        streamer_url = stream['thumbnail_url']
-        my_dic = {streamer_name:streamer_url}
-        mylist.append(my_dic)
+
+    try:
+        response = requests.get(url, headers= header)
+        jsondata = response.json()
+        return jsondata['data'][0]['user_name']
+    except Exception as e:
+        logging.error(f'Error checking user: ', e)
         
-    return mylist
