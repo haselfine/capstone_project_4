@@ -9,13 +9,17 @@
   <body>
     <h1>Game Viewer</h1>
     
-    {# post the contents of the search bar #}
-    <label for="search">Search for a game:</label>
-    <form method = "POST">
+    <div class="box" style="justify-content:space-between">
+      {# post the contents of the search bar #}
+      <div><label for="search">Search for a game:</label>
+      <form method = "POST">
         <input name="search" required maxlength="50" value="{{ search_term }}"></input>
         <input type="submit" value="Search"></input>
         <a href="/"></a>
-    </form>
+      </form></div>
+      
+      <div><a href="/bookmarks">Bookmarked Games</a></div>
+    </div>
 
     <h3>{{ list_heading }}</h3>
 

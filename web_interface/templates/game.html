@@ -5,6 +5,30 @@
     <title>{{ game_title }}</title>
     <link rel="stylesheet" href="{{ url_for("static", filename="sakura.css") }}" type="text/css">
     <link rel="shortcut icon" href="{{ url_for("static", filename="favicon.ico") }}">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            var bookmarked = {{ bookmarked }};
+            if (bookmarked){
+                $("button").hide();
+                $("small").html("{{ game_title }} is bookmarked.");
+            }
+        
+            $("button").click(function(){
+                var confirmed = confirm("Bookmark {{ game_title }}?");
+                if (confirmed) {
+                    $.post("/add_bookmark", {
+                        game_title: "{{ game_title }}",
+                        image_url: "{{ image_url }}"
+                    },
+                    function(data){ // function run if post is successful
+                        $("button").hide();
+                        $("small").html("Bookmarked {{ game_title }}!");
+                    });
+                }
+            });
+        });
+    </script>
   </head>
   <body>
   
@@ -13,7 +37,8 @@
     <div class="box" style="justify-content:space-between">
       <div><h1>{{ game_title }}</h1></div>
       <div style="align-self:center">
-        <button type="button" onclick="alert('Bookmarking {{ game_title }}')">Bookmark {{ game_title }}</button>
+        <button type="button">Bookmark {{ game_title }}</button>
+        <p><small></small></p>
       </div>
     </div>
     
