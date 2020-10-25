@@ -6,7 +6,7 @@ Import this file and call app.start() to start web server
 
 from flask import Flask, request, render_template, redirect
 from dataclasses import dataclass
-from project_4.view.main_program import *
+from project_4.view.game_API import *
 from project_4.view.image import *
 from project_4.viewmodel.viewmodel import *
 
@@ -106,5 +106,4 @@ def search_for_game(search_term):
         return results
     
     else:
-        return None
-    
+        return None    

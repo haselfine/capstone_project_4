@@ -52,4 +52,4 @@ def get_game_info(game_id):
         logging.error(error)
         return None, error
 
-    return game_info
+    return game_info, None
