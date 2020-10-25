@@ -39,25 +39,6 @@ def search_game_request(game_name):
     return game_list
 
 
-def get_current_streamer_from_twitch(game_id):
-
-    url = f'https://api.twitch.tv/helix/streams?game_id={game_id}'
-    client_id = os.environ.get('CLIENT_ID')
-    auth_key = os.environ.get('AUTHORIZATION')
-    
-    Api_headers = {'Client-ID': client_id, 'Authorization': auth_key}
-    
-    try:
-        response = requests.get(url, headers = Api_headers)
-        jsondata = response.json()
-        return jsondata
-
-    except Exception as e:
-        logging.error(f'Error checking user: ', e)
-        
-        
-
-       
 
 
 
