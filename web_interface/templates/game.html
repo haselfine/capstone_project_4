@@ -50,7 +50,7 @@
     </div>
     
     <div class="box">
-      <div><img src="{{ game_obj.image_url }}" alt="{{ game_obj.title }} Poster"></div>
+      <div><img src="{{ game_obj.image_url }}"></div>
       <div>
         <ul style="list-style-type:none">
           <li>Released {{ game_obj.date_released.month }}/{{ game_obj.date_released.day }}/{{ game_obj.date_released.year }}</li>
@@ -59,8 +59,8 @@
         </ul>
         
         {% if game_obj.platforms | length > 0 %}
-          <h3>Available Platforms:</h3>
           <ul style="list-style-type:none">
+          <h3>Available Platforms:</h3>
           {% for platform in game_obj.platforms %}
             <li>{{ platform }}</li>
           {% endfor %}
@@ -68,8 +68,8 @@
         {% endif %}
         
         {% if game_obj.website_urls | length > 0 %}
-          <h3>Links:</h3>
           <ul style="list-style-type:none">
+          <h3>Links:</h3>
           {% for site in game_obj.website_urls %}
               <li><a href="{{ site }}">{{ site }}</li>
           {% endfor %}
