@@ -58,19 +58,19 @@
           <li>{{ game_obj.summary }}</li>
         </ul>
         
-        {% if game_obj.platforms | length > 0 %}
+        {% if game_obj.get_platforms() | length > 0 %}
           <ul style="list-style-type:none">
           <h3>Available Platforms:</h3>
-          {% for platform in game_obj.platforms %}
+          {% for platform in game_obj.get_platforms() %}
             <li>{{ platform }}</li>
           {% endfor %}
           </ul>
         {% endif %}
         
-        {% if game_obj.website_urls | length > 0 %}
+        {% if game_obj.get_websites() | length > 0 %}
           <ul style="list-style-type:none">
           <h3>Links:</h3>
-          {% for site in game_obj.website_urls %}
+          {% for site in game_obj.get_websites() %}
               <li><a href="{{ site }}">{{ site }}</li>
           {% endfor %}
           </ul>

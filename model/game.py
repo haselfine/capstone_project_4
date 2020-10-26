@@ -2,6 +2,7 @@ from peewee import *
 from project_4.model.basemodel import db, BaseModel
 from dataclasses import dataclass
 from datetime import datetime
+import ast
 
 class Game(BaseModel):
     
@@ -19,6 +20,12 @@ class Game(BaseModel):
 
     def __str__(self):
         return self.title 
+    
+    def get_platforms(self):
+        return ast.literal_eval(self.platforms)
+    
+    def get_websites(self):
+        return ast.literal_eval(self.website_urls)
     
 
 @dataclass
@@ -50,6 +57,12 @@ class TempGame(): # game object that's not automatically saved
                                igdb_id=self.igdb_id,
                                twitch_id=self.twitch_id)
         game_obj.save()
+        
+    def get_platforms(self):
+        return self.platforms
+    
+    def get_websites(self):
+        return self.website_urls
         
 
 db.connect()

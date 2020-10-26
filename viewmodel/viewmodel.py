@@ -2,6 +2,7 @@ from project_4.model.game import Game, TempGame, DatabaseError
 from project_4.view.image import *
 from project_4.view.twitch import *
 import logging
+import ast
 from datetime import datetime
 
 def add_game(game_data, from_api):
@@ -21,7 +22,7 @@ def create_game(game_data, from_api): # from_api indicates whether there is an i
     if from_api:
         
         # sanitize data
-        if 'cover' in game_data: original_image_url = game_data['cover']['url']
+        if 'cover' in game_data: image_url = create_image_link(game_data['cover']['url'])
         else: original_image_url = None
         if 'rating' in game_data: rating = int(game_data['rating'])
         else: rating = 0
@@ -33,9 +34,9 @@ def create_game(game_data, from_api): # from_api indicates whether there is an i
         else: timestamp = 0
         
     else:
-        original_image_url = game_data['image_url']
-        website_urls = game_data['websites']
-        platforms = game_data['platforms']
+        image_url = game_data['image_url']
+        website_urls = ast.literal_eval(game_data['websites'].replace('&#39;', '\''))
+        platforms = ast.literal_eval(game_data['platforms'].replace('&#39;', '\''))
         rating = game_data['rating']
         timestamp = game_data['first_release_date']
     
@@ -44,7 +45,7 @@ def create_game(game_data, from_api): # from_api indicates whether there is an i
                         date_released=datetime.fromtimestamp(int(timestamp)),
                         date_released_timestamp=int(timestamp),
                         rating=rating,
-                        image_url=create_image_link(original_image_url),
+                        image_url=image_url,
                         platforms=platforms,
                         website_urls=website_urls,
                         igdb_id=int(game_data['id']),
