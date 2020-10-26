@@ -48,8 +48,8 @@ def create_game(game_data, from_api): # from_api indicates whether there is an i
                         image_url=image_url,
                         platforms=platforms,
                         website_urls=website_urls,
-                        igdb_id=int(game_data['id']),
-                        twitch_id=int(get_twitch_game_id(game_data['name'])[0]))
+                        igdb_id=game_data['id'],
+                        twitch_id=get_twitch_game_id(game_data['name'])[0])
     return game_obj
 
 def find_game(title_in):
