@@ -8,5 +8,7 @@ logging.basicConfig(filename='debug.log', level=logging.DEBUG, format=f'%(asctim
 def main():
     app.start()
 
+
+
 if __name__ == '__main__':
     main()
