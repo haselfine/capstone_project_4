@@ -41,23 +41,20 @@ def search_results():
         return render_template('home.html', list_heading='No Results Found')
     
 
-@app.route('/game/<game_title>&<game_id>') # TODO: get title from request to API, not by including in url
-def game(game_title, game_id):
-    bookmark = find_game(game_title)[0] # see if game is bookmarked
+@app.route('/game/<game_id>')
+def game(game_id):
+    game_obj = find_game_by_igdb_id(game_id)[0] # see if game is bookmarked
 
-    if bookmark is None:
+    if game_obj is None:
         bookmarked = 'false'
-        poster_request = call_api_covers(game_id)
+        game_details = get_game_info(game_id)[0]
+        
+        if game_details is not None:
+            game_obj = create_game(game_details, True)
     else:
         bookmarked = 'true'
-        poster_request = bookmark.image_url, None
-    
-    if poster_request[0] is not None:
-        image_url = poster_request[0]
-    else:
-        image_url = None
         
-    return render_template('game.html', game_title=game_title, image_url=image_url, bookmarked=bookmarked)
+    return render_template('game.html', game_obj=game_obj, bookmarked=bookmarked)
 
 
 @app.route('/bookmarks')
@@ -68,30 +65,18 @@ def bookmarks():
         return render_template('bookmarks.html', list_heading='All Bookmarks:', bookmarks=bookmarked_games)
     else:
         return render_template('bookmarks.html', list_heading='No Bookmarks (yet!)')
-
-
-@app.route('/bookmarked_game/<game_title>')
-def bookmarked_game(game_title):
-    game = find_game(game_title)[0]
-    
-    if game is not None:
-        return render_template('game.html', game_title=game.title, image_url=game.image_url, bookmarked='true')
-    else:
-        # redirect to home page if not found
-        redirect('/')
         
 
 @app.route('/add_bookmark', methods=['POST'])
 def add_bookmark():
-    game_title = request.form['game_title']
-    image_url = request.form['image_url']
+    game_data = request.form.to_dict(True)
     
-    error = add_game(game_title, image_url)[1]
+    error = add_game(game_data, False)[1]
     
     if error is None:
-        return '{\'status\': 200}'
+        return '200'
     else:
-        return '{\'status\': 400, \'message\': {error}}'
+        return '400'
 
 
 def search_for_game(search_term):

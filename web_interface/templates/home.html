@@ -26,7 +26,7 @@
     {# display results of search in a list #}
     {% for game in search_results %}
         <li style="list-style-type:none">
-            <a href="/game/{{game.game_title}}&{{ game.game_id }}">{{ game.game_title }}</a>
+            <a href="/game/{{ game.game_id }}">{{ game.game_title }}</a>
         </li>
     {% endfor %}
   

@@ -15,7 +15,7 @@
     
     {% for game in bookmarks %}
         <li>
-          <a href="/bookmarked_game/{{ game.title }}">{{ game.title }}</a>
+          <a href="/game/{{ game.igdb_id }}">{{ game.title }}</a>
         </li>
     {% endfor %}
   

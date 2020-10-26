@@ -30,9 +30,7 @@ def search_game_request(game_name):
         error = 'An error occurred: ' + e
         logging.error(error)
         return None, error
-
-
-
+    
     
 # funtion that takes the game id, and returns a list containing one dictionary that includes
 # all the data 
@@ -42,9 +40,8 @@ def get_game_info(game_id):
     body_data = f'fields name, rating, platforms.name, summary, first_release_date, cover.url, websites.url; where id = {game_id};'
     
     try:
-
         res = requests.post(url, data=body_data, headers = header_data)
-        game_info = res.json()
+        game_info = res.json()[0]
 
     except Exception as e:
         
