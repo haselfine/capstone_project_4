@@ -16,7 +16,7 @@ class Game(BaseModel):
     platforms = TextField() # store json for these as text in db
     website_urls = TextField()  # store json for these as text in db
     igdb_id = IntegerField()
-    twitch_id = IntegerField()
+    twitch_id = IntegerField(null=True)
 
     def __str__(self):
         return self.title 

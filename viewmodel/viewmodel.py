@@ -18,6 +18,7 @@ def add_game(game_data, from_api):
         return None, e
     
 def create_game(game_data, from_api): # from_api indicates whether there is an image_url field
+    
     if from_api:
         
         # sanitize data

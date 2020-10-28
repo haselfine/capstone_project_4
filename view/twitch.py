@@ -12,7 +12,10 @@ def get_twitch_game_id(game_name): #needs official game name from IGDB can't jus
     try:
         response = requests.get(url, headers=header_dict)
         data = response.json()
-        return data['data'][0]['id'], None
+        if len(data) > 0:
+            return data['data'][0]['id'], None
+        else:
+            return None, 'No twitch_id found'
     except Exception as e:
         logging.error(e)
         return None, e
