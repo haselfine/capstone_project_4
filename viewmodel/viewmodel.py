@@ -23,7 +23,7 @@ def create_game(game_data, from_api): # from_api indicates whether there is an i
         
         # sanitize data
         if 'cover' in game_data: image_url = create_image_link(game_data['cover']['url'])
-        else: original_image_url = None
+        else: image_url = None
         if 'rating' in game_data: rating = int(game_data['rating'])
         else: rating = -1
         if 'websites' in game_data: website_urls = make_list_from_json(game_data['websites'], 'url')
@@ -32,6 +32,8 @@ def create_game(game_data, from_api): # from_api indicates whether there is an i
         else: platforms = []
         if 'first_release_date' in game_data: timestamp = game_data['first_release_date']
         else: timestamp = 0
+        if 'summary' in game_data: summary = game_data['summary'].replace('\n', ' ')
+        else: summary = None
         
     else:
         image_url = game_data['image_url']
@@ -40,8 +42,10 @@ def create_game(game_data, from_api): # from_api indicates whether there is an i
         rating = game_data['rating']
         timestamp = game_data['first_release_date']
     
+    
+    
     game_obj = TempGame(title=game_data['name'],
-                        summary=game_data['summary'].replace('\n', ' '),
+                        summary=summary,
                         date_released=datetime.fromtimestamp(int(timestamp)),
                         date_released_timestamp=int(timestamp),
                         rating=rating,

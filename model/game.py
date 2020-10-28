@@ -8,15 +8,15 @@ class Game(BaseModel):
     
     game_id = AutoField(primary_key=True)
     title = CharField(unique=True, constraints=[Check('length(title) >= 1'), Check('title is not null')])
-    summary = CharField()
-    date_released = DateField()
-    date_released_timestamp = TimestampField()
-    rating = IntegerField()
+    summary = CharField(null=True)  # allow null values
+    date_released = DateField(null=True)
+    date_released_timestamp = TimestampField(null=True)
+    rating = IntegerField(null=True)
     image_url = CharField(unique=True)
     platforms = TextField()
     website_urls = TextField()
     igdb_id = IntegerField()
-    twitch_id = IntegerField(null=True) # allow null values
+    twitch_id = IntegerField(null=True) 
 
     def __str__(self):
         return self.title 

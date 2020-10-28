@@ -51,7 +51,9 @@
     
     <div class="box">
       <div style="min-width:300px">
-        <img src="{{ game_obj.image_url }}">
+        {% if game_obj.image_url is not none %}
+          <img src="{{ game_obj.image_url }}">
+        {% endif %}
         
         {% if active_streamers | length > 0 %}
         
@@ -75,7 +77,9 @@
             <li>{{ game_obj.rating }} / 100</li>
           {% endif %}
           
-          <li>{{ game_obj.summary }}</li>
+          {% if game_obj.summary is not none %}
+            <li>{{ game_obj.summary }}</li>
+          {% endif %}
         </ul>
         
         {% if game_obj.get_platforms() | length > 0 %}
