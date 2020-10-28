@@ -1,6 +1,6 @@
-from project_4.model.game import Game, TempGame, DatabaseError
-from project_4.view.image import *
-from project_4.view.twitch import *
+from model.game import Game, TempGame, DatabaseError
+from view.image import *
+from view.twitch import *
 import logging
 import ast
 from datetime import datetime

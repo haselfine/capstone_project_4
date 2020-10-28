@@ -18,7 +18,7 @@ def create_image_link(original_url):
 
 def make_it_small(igdb_url): #cloudinary uses the igdb url to resize the image... We can use this 25,000 times for free. Limit game results. And use cache
     if len(cloudinary_id) > 0: #make sure it's the correct id
-        cloudinary_url = f'https://res.cloudinary.com/{cloudinary_id}/image/fetch/w_500,f_auto/https://'
+        cloudinary_url = f'https://res.cloudinary.com/{cloudinary_id}/image/fetch/w_300,f_auto/https://'
         return cloudinary_url + igdb_url
     else:
         error = ('Error', 'Need cloudinary ID')

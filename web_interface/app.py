@@ -6,9 +6,9 @@ Import this file and call app.start() to start web server
 
 from flask import Flask, request, render_template, redirect
 from dataclasses import dataclass
-from .view.game_API import *
-from .view.image import *
-from .viewmodel.viewmodel import *
+from view.game_API import *
+from view.image import *
+from viewmodel.viewmodel import *
 
 app = Flask(__name__)
 client = os.environ.get('CLIENT_ID')
