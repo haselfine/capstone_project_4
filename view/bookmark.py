@@ -1,4 +1,4 @@
-from project_4.viewmodel.viewmodel import add_game, get_all_games, delete_game, find_game
+from .viewmodel.viewmodel import add_game, get_all_games, delete_game, find_game
 
 def bookmark_game(game_title, game_url):
     while True:

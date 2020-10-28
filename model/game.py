@@ -1,5 +1,5 @@
 from peewee import *
-from project_4.model.basemodel import db, BaseModel
+from .model.basemodel import db, BaseModel
 from dataclasses import dataclass
 from datetime import datetime
 import ast
