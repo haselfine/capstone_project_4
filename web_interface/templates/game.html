@@ -61,7 +61,7 @@
         {% if game_obj.get_platforms() | length > 0 %}
           <ul style="list-style-type:none">
           <h3>Available Platforms:</h3>
-          {% for platform in game_obj.get_platforms() %}
+          {% for platform in game_obj.get_platforms %}
             <li>{{ platform }}</li>
           {% endfor %}
           </ul>
