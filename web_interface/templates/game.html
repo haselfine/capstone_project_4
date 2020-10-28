@@ -70,7 +70,11 @@
       <div>
         <ul style="list-style-type:none">
           <li>Released {{ game_obj.date_released.month }}/{{ game_obj.date_released.day }}/{{ game_obj.date_released.year }}</li>
-          <li>{{ game_obj.rating }} / 100</li>
+          
+          {% if game_obj.rating >= 0 %}
+            <li>{{ game_obj.rating }} / 100</li>
+          {% endif %}
+          
           <li>{{ game_obj.summary }}</li>
         </ul>
         

@@ -25,7 +25,7 @@ def create_game(game_data, from_api): # from_api indicates whether there is an i
         if 'cover' in game_data: image_url = create_image_link(game_data['cover']['url'])
         else: original_image_url = None
         if 'rating' in game_data: rating = int(game_data['rating'])
-        else: rating = 0
+        else: rating = -1
         if 'websites' in game_data: website_urls = make_list_from_json(game_data['websites'], 'url')
         else: website_urls = []
         if 'platforms' in game_data: platforms = make_list_from_json(game_data['platforms'], 'name')
