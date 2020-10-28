@@ -3,39 +3,10 @@
   <head>
     <meta charset="UTF-8">
     <title>{{ game_obj.title }}</title>
-    <link rel="stylesheet" href="{{ url_for("static", filename="sakura.css") }}" type="text/css">
-    <link rel="shortcut icon" href="{{ url_for("static", filename="favicon.ico") }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='sakura.css') }}" type="text/css">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script>
-        $(document).ready(function(){
-            var bookmarked = {{ bookmarked }};
-            if (bookmarked){
-                $("button").hide();
-                $("small").html("{{ game_obj.title }} is bookmarked.");
-            }
-        
-            $("button").click(function(){
-                var confirmed = confirm("Bookmark {{ game_obj.title }}?");
-                
-                if (confirmed) {
-                    $.post("/add_bookmark", {
-                        name: "{{ game_obj.title }}",
-                        summary: "{{ game_obj.summary }}",
-                        first_release_date: "{{ game_obj.date_released_timestamp }}",
-                        rating: {{ game_obj.rating }},
-                        image_url: "{{ game_obj.image_url }}",
-                        platforms: "{{ game_obj.platforms }}",
-                        websites: "{{ game_obj.website_urls }}",
-                        id: "{{ game_obj.igdb_id }}"
-                    },
-                    function(data){ // function run if post is successful
-                        $("button").hide();
-                        $("small").html("Bookmarked {{ game_obj.title }}!");
-                    });
-                }
-            });
-        });
-    </script>
+    <script src="{{ url_for('static', filename='bookmark.js') }}"></script>
   </head>
   <body>
   
