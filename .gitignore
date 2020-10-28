@@ -1,9 +1,6 @@
 env/
-web_interface/__pycache__
 twitch_auth
+*.pyc
 __pycache__
-view/__pycache__
-viewmodel/__pycache__
 debug.log
-model/__pycache__
-view/__pycache__/
+
