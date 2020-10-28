@@ -12,10 +12,9 @@
     <div class="box" style="justify-content:space-between">
       {# post the contents of the search bar #}
       <div><label for="search">Search for a game:</label>
-      <form method = "POST">
-        <input name="search" required maxlength="50" value="{{ search_term }}"></input>
+      <form method="POST" accept-charset="utf-8">
+        <input name="search" action="/" required maxlength="50" value="{{ search_term }}"></input>
         <input type="submit" value="Search"></input>
-        <a href="/"></a>
       </form></div>
       
       <div><a href="/bookmarks">Bookmarked Games</a></div>

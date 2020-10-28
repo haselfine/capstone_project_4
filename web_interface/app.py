@@ -4,7 +4,7 @@ Renders and displays templates from the templates directory
 Import this file and call app.start() to start web server
 """
 
-from flask import Flask, request, render_template, redirect
+from flask import Flask, request, render_template, redirect, Response
 from dataclasses import dataclass
 from view.game_API import *
 from view.image import *
@@ -41,13 +41,13 @@ def search_results():
         return render_template('home.html', list_heading='No Results Found')
     
 
-@app.route('/game/<game_id>')
-def game(game_id):
-    game_obj = find_game_by_igdb_id(game_id)[0] # see if game is bookmarked
+@app.route('/game/<igdb_id>')
+def game(igdb_id):
+    game_obj = find_game_by_igdb_id(igdb_id)[0] # see if game is bookmarked
 
     if game_obj is None:
         bookmarked = 'false'
-        game_details = get_game_info(game_id)[0]
+        game_details = get_game_info(igdb_id)[0]
         
         if game_details is not None:
             game_obj = create_game(game_details, True)
@@ -74,9 +74,19 @@ def add_bookmark():
     error = add_game(game_data, False)[1]
     
     if error is None:
-        return '200'
+        return Response('status_code: 201', status=201)
     else:
-        return '400'
+        return Response('status_code: 400', status=400)
+
+
+@app.route('/delete_bookmark/<game_id>', methods=['POST'])
+def delete_bookmark(game_id):
+    error = delete_game(game_id)[1]
+    
+    if error is None:
+        return redirect('/bookmarks')
+    else:
+        return Response('status_code: 400', status=400)
 
 
 def search_for_game(search_term):

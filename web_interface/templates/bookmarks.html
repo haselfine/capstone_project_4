@@ -14,9 +14,15 @@
     <h3>{{ list_heading }}</h3>
     
     {% for game in bookmarks %}
-        <li>
-          <a href="/game/{{ game.igdb_id }}">{{ game.title }}</a>
-        </li>
+        <div class="box" style="justify-content:space-between">
+          <div><a href="/game/{{ game.igdb_id }}">{{ game.title }}</a></div>
+          
+          <div>
+          <form method="POST" action="/delete_bookmark/{{ game.game_id }}" onSubmit="return confirm('Delete {{ game.title }}?')">
+            <button type="submit">Delete {{ game.title }}</button>
+          </form>
+          </div>
+        </div>
     {% endfor %}
   
   </body>

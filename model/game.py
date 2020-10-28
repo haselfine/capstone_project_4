@@ -13,10 +13,10 @@ class Game(BaseModel):
     date_released_timestamp = TimestampField()
     rating = IntegerField()
     image_url = CharField(unique=True)
-    platforms = TextField() # store json for these as text in db
-    website_urls = TextField()  # store json for these as text in db
+    platforms = TextField()
+    website_urls = TextField()
     igdb_id = IntegerField()
-    twitch_id = IntegerField(null=True)
+    twitch_id = IntegerField(null=True) # allow null values
 
     def __str__(self):
         return self.title 
