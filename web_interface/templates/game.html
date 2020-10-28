@@ -50,7 +50,23 @@
     </div>
     
     <div class="box">
-      <div style="min-width:300px"><img src="{{ game_obj.image_url }}"></div>
+      <div style="min-width:300px">
+        <img src="{{ game_obj.image_url }}">
+        
+        {% if active_streamers | length > 0 %}
+        
+        <b>Streamers playing {{ game_obj.title }} now:</b>
+        <ul style="list-style-type:none">
+          
+          {% for stream in active_streamers %}
+          <li><small><a href="https://{{ stream['url'] }}">{{ stream['streamer_name'] }}</a></small></li>
+          {% endfor %}
+          
+        </ul>
+        
+        {% endif %}
+        
+      </div>
       <div>
         <ul style="list-style-type:none">
           <li>Released {{ game_obj.date_released.month }}/{{ game_obj.date_released.day }}/{{ game_obj.date_released.year }}</li>
@@ -59,24 +75,30 @@
         </ul>
         
         {% if game_obj.get_platforms() | length > 0 %}
-          <ul style="list-style-type:none">
+        
+        <ul style="list-style-type:none">
           <h3>Available Platforms:</h3>
+          
           {% for platform in game_obj.get_platforms() %}
-            <li>{{ platform }}</li>
+          <li>{{ platform }}</li>
           {% endfor %}
-          </ul>
+          
+        </ul>
+          
         {% endif %}
         
         {% if game_obj.get_websites() | length > 0 %}
           <ul style="list-style-type:none">
           <h3>Links:</h3>
+          
           {% for site in game_obj.get_websites() %}
-              <li><a href="{{ site }}">{{ site }}</li>
+          <li><a href="{{ site }}">{{ site }}</li>
           {% endfor %}
+          
           </ul>
         {% endif %}
+        
       </div>
     </div>
-  
   </body>
 </html>

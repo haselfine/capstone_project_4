@@ -13,7 +13,9 @@
     
     <h3>{{ list_heading }}</h3>
     
+    <ul style="list-style-type:none">
     {% for game in bookmarks %}
+      <li>
         <div class="box" style="justify-content:space-between">
           <div><a href="/game/{{ game.igdb_id }}">{{ game.title }}</a></div>
           
@@ -23,7 +25,9 @@
           </form>
           </div>
         </div>
+      </li>
     {% endfor %}
+    </ul>
   
   </body>
 </html>

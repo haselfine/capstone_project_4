@@ -54,7 +54,9 @@ def game(igdb_id):
     else:
         bookmarked = 'true'
         
-    return render_template('game.html', game_obj=game_obj, bookmarked=bookmarked)
+    active_streamers = get_current_streamers(game_obj.twitch_id)[0]
+        
+    return render_template('game.html', game_obj=game_obj, bookmarked=bookmarked, active_streamers=active_streamers)
 
 
 @app.route('/bookmarks')
