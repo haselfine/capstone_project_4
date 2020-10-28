@@ -12,9 +12,8 @@ def add_game(game_data, from_api):
         return 'Game saved.', None
     except DatabaseError as e:
         logging.error(e)
-        return None, 'There was an error in adding the game.'
+        return None, e
     except Exception as e:
-        print(e)
         logging.error(e)
         return None, e
     
@@ -56,27 +55,31 @@ def find_game(title_in):
     try:
         searched_game = Game.get_or_none(Game.title == title_in)
         return searched_game, None
-    except DatabaseError:
-        return None, 'Sorry. There was an error retrieving the game.'
+    except DatabaseError as e:
+        logging.error(e)
+        return None, e
 
 def find_game_by_igdb_id(igdb_id):
     try:
         searched_game = Game.get_or_none(Game.igdb_id == igdb_id)
         return searched_game, None
-    except DatabaseError:
-        return None, 'Sorry. There was an error retrieving the game.'
-
+    except DatabaseError as e:
+        logging.error(e)
+        return None, e
+    
 def get_all_games():
     try:
         return Game.select(), None
-    except DatabaseError:
-        return None, 'Sorry. There was an error retrieving the games'
+    except DatabaseError as e:
+        logging.error(e)
+        return None, e
 
 def delete_game(game_id_in):
     try:
         return Game.delete().where(Game.game_id == game_id_in).execute(), None
-    except DatabaseError:
-        return None, 'Sorry. There was an error deleting the artwork'
+    except DatabaseError as e:
+        logging.error(e)
+        return None, e
     
 def make_list_from_json(json, field_name):
     output_list = []

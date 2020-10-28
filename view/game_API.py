@@ -27,9 +27,8 @@ def search_game_request(game_name):
             return None, error
 
     except Exception as e:
-        error = 'An error occurred: ' + e
-        logging.error(error)
-        return None, error
+        logging.error(e)
+        return None, e
     
     
 # funtion that takes the game id, and returns a list containing one dictionary that includes
@@ -44,9 +43,7 @@ def get_game_info(game_id):
         game_info = res.json()[0]
 
     except Exception as e:
-        
-        error = 'An error occured: ' + e
-        logging.error(error)
-        return None, error
+        logging.error(e)
+        return None, e
 
     return game_info, None

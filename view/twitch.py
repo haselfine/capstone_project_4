@@ -14,9 +14,8 @@ def get_twitch_game_id(game_name): #needs official game name from IGDB can't jus
         data = response.json()
         return data['data'][0]['id'], None
     except Exception as e:
-        logging.error(f'Something went wrong when calling the API: {e}')
-        error = ('Error', data)
-        return None, error
+        logging.error(e)
+        return None, e
    
 def get_current_streamers(twitch_id):
     url = f'https://api.twitch.tv/helix/streams?game_id={twitch_id}'
@@ -27,6 +26,6 @@ def get_current_streamers(twitch_id):
         jsondata = response.json()
         return jsondata['data'][0]['user_name'], None
     except Exception as e:
-        logging.error(f'Error checking user: ', e)
+        logging.error(e)
         return None, e
     
