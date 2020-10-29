@@ -2,28 +2,35 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8">
-    <title>{{ game_title }}</title>
-    <link rel="stylesheet" href="{{ url_for("static", filename="sakura.css") }}" type="text/css">
-    <link rel="shortcut icon" href="{{ url_for("static", filename="favicon.ico") }}">
+    <title>{{ game_obj.title }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='sakura.css') }}" type="text/css">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script>
         $(document).ready(function(){
             var bookmarked = {{ bookmarked }};
             if (bookmarked){
                 $("button").hide();
-                $("small").html("{{ game_title }} is bookmarked.");
+                $("span").html("{{ game_obj.title }} is bookmarked.");
             }
-        
+
             $("button").click(function(){
-                var confirmed = confirm("Bookmark {{ game_title }}?");
+                var confirmed = confirm("Bookmark {{ game_obj.title }}?");
+                
                 if (confirmed) {
                     $.post("/add_bookmark", {
-                        game_title: "{{ game_title }}",
-                        image_url: "{{ image_url }}"
+                        name: "{{ game_obj.title }}",
+                        summary: "{{ game_obj.summary }}",
+                        first_release_date: "{{ game_obj.date_released_timestamp }}",
+                        rating: {{ game_obj.rating }},
+                        image_url: "{{ game_obj.image_url }}",
+                        platforms: "{{ game_obj.platforms }}",
+                        websites: "{{ game_obj.website_urls }}",
+                        id: "{{ game_obj.igdb_id }}"
                     },
                     function(data){ // function run if post is successful
                         $("button").hide();
-                        $("small").html("Bookmarked {{ game_title }}!");
+                        $("span").html("Bookmarked {{ game_obj.title }}!");
                     });
                 }
             });
@@ -35,25 +42,71 @@
     <a href="/">Return Home</a>
   
     <div class="box" style="justify-content:space-between">
-      <div><h1>{{ game_title }}</h1></div>
+      <div><h1>{{ game_obj.title }}</h1></div>
       <div style="align-self:center">
-        <button type="button">Bookmark {{ game_title }}</button>
-        <p><small></small></p>
+        <button type="button">Bookmark {{ game_obj.title }}</button>
+        <small><span></span></small>
       </div>
     </div>
     
     <div class="box">
-      <div><img src="https://{{ image_url }}" alt="{{ game_title }} Poster"></div>
+      <div style="min-width:300px">
+        {% if game_obj.image_url is not none %}
+          <img src="{{ game_obj.image_url }}">
+        {% endif %}
+        
+        {% if active_streamers | length > 0 %}
+        
+        <b>Streamers playing {{ game_obj.title }} now:</b>
+        <ul style="list-style-type:none">
+          
+          {% for stream in active_streamers %}
+          <li><small><a href="https://{{ stream['url'] }}">{{ stream['streamer_name'] }}</a></small></li>
+          {% endfor %}
+          
+        </ul>
+        
+        {% endif %}
+        
+      </div>
       <div>
         <ul style="list-style-type:none">
-          <li>Detail about Game</li>
-          <li>Another Detail</li>
-          <li>Detail Number Three</li>
-          <li>Yet Another Detail</li>
-          <li>Details Galore</li>
+          <li>Released {{ game_obj.date_released.month }}/{{ game_obj.date_released.day }}/{{ game_obj.date_released.year }}</li>
+          
+          {% if game_obj.rating >= 0 %}
+            <li>{{ game_obj.rating }} / 100</li>
+          {% endif %}
+          
+          {% if game_obj.summary is not none %}
+            <li>{{ game_obj.summary }}</li>
+          {% endif %}
         </ul>
+        
+        {% if game_obj.get_platforms() | length > 0 %}
+        
+        <ul style="list-style-type:none">
+          <h3>Available Platforms:</h3>
+          
+          {% for platform in game_obj.get_platforms() %}
+          <li>{{ platform }}</li>
+          {% endfor %}
+          
+        </ul>
+          
+        {% endif %}
+        
+        {% if game_obj.get_websites() | length > 0 %}
+          <ul style="list-style-type:none">
+          <h3>Links:</h3>
+          
+          {% for site in game_obj.get_websites() %}
+          <li><a href="{{ site }}">{{ site }}</li>
+          {% endfor %}
+          
+          </ul>
+        {% endif %}
+        
       </div>
     </div>
-  
   </body>
 </html>

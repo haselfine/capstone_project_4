@@ -4,11 +4,11 @@ Renders and displays templates from the templates directory
 Import this file and call app.start() to start web server
 """
 
-from flask import Flask, request, render_template, redirect
+from flask import Flask, request, render_template, redirect, Response
 from dataclasses import dataclass
-from project_4.view.main_program import *
-from project_4.view.image import *
-from project_4.viewmodel.viewmodel import *
+from view.game_API import *
+from view.image import *
+from viewmodel.viewmodel import *
 
 app = Flask(__name__)
 client = os.environ.get('CLIENT_ID')
@@ -41,23 +41,22 @@ def search_results():
         return render_template('home.html', list_heading='No Results Found')
     
 
-@app.route('/game/<game_title>&<game_id>') # TODO: get title from request to API, not by including in url
-def game(game_title, game_id):
-    bookmark = find_game(game_title)[0] # see if game is bookmarked
+@app.route('/game/<igdb_id>')
+def game(igdb_id):
+    game_obj = find_game_by_igdb_id(igdb_id)[0] # see if game is bookmarked
 
-    if bookmark is None:
+    if game_obj is None:
         bookmarked = 'false'
-        poster_request = call_api_covers(game_id)
+        game_details = get_game_info(igdb_id)[0]
+        
+        if game_details is not None:
+            game_obj = create_game(game_details, True)
     else:
         bookmarked = 'true'
-        poster_request = bookmark.image_url, None
-    
-    if poster_request[0] is not None:
-        image_url = poster_request[0]
-    else:
-        image_url = None
         
-    return render_template('game.html', game_title=game_title, image_url=image_url, bookmarked=bookmarked)
+    active_streamers = get_current_streamers(game_obj.twitch_id)[0]
+        
+    return render_template('game.html', game_obj=game_obj, bookmarked=bookmarked, active_streamers=active_streamers)
 
 
 @app.route('/bookmarks')
@@ -68,30 +67,28 @@ def bookmarks():
         return render_template('bookmarks.html', list_heading='All Bookmarks:', bookmarks=bookmarked_games)
     else:
         return render_template('bookmarks.html', list_heading='No Bookmarks (yet!)')
-
-
-@app.route('/bookmarked_game/<game_title>')
-def bookmarked_game(game_title):
-    game = find_game(game_title)[0]
-    
-    if game is not None:
-        return render_template('game.html', game_title=game.title, image_url=game.image_url, bookmarked='true')
-    else:
-        # redirect to home page if not found
-        redirect('/')
         
 
 @app.route('/add_bookmark', methods=['POST'])
 def add_bookmark():
-    game_title = request.form['game_title']
-    image_url = request.form['image_url']
+    game_data = request.form.to_dict(True)
     
-    error = add_game(game_title, image_url)[1]
+    error = add_game(game_data, False)[1]
     
     if error is None:
-        return '{\'status\': 200}'
+        return Response('status_code: 201', status=201)
     else:
-        return '{\'status\': 400, \'message\': {error}}'
+        return Response('status_code: 400', status=400)
+
+
+@app.route('/delete_bookmark/<game_id>', methods=['POST'])
+def delete_bookmark(game_id):
+    error = delete_game(game_id)[1]
+    
+    if error is None:
+        return redirect('/bookmarks')
+    else:
+        return Response('status_code: 400', status=400)
 
 
 def search_for_game(search_term):
@@ -106,5 +103,4 @@ def search_for_game(search_term):
         return results
     
     else:
-        return None
-    
+        return None  

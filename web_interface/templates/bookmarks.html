@@ -3,8 +3,8 @@
   <head>
     <meta charset="UTF-8">
     <title>Bookmarks</title>
-    <link rel="stylesheet" href="{{ url_for("static", filename="sakura.css") }}" type="text/css">
-    <link rel="shortcut icon" href="{{ url_for("static", filename="favicon.ico") }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='sakura.css') }}" type="text/css">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
   </head>
   <body>
   
@@ -13,11 +13,21 @@
     
     <h3>{{ list_heading }}</h3>
     
+    <ul style="list-style-type:none">
     {% for game in bookmarks %}
-        <li>
-          <a href="/bookmarked_game/{{ game.title }}">{{ game.title }}</a>
-        </li>
+      <li>
+        <div class="box" style="justify-content:space-between">
+          <div><a href="/game/{{ game.igdb_id }}">{{ game.title }}</a></div>
+          
+          <div>
+          <form method="POST" action="/delete_bookmark/{{ game.game_id }}" onSubmit="return confirm('Delete {{ game.title }}?')">
+            <button type="submit">Delete {{ game.title }}</button>
+          </form>
+          </div>
+        </div>
+      </li>
     {% endfor %}
+    </ul>
   
   </body>
 </html>
