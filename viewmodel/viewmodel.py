@@ -41,8 +41,7 @@ def create_game(game_data, from_api): # from_api indicates whether there is an i
         platforms = ast.literal_eval(game_data['platforms'].replace('&#39;', '\''))
         rating = game_data['rating']
         timestamp = game_data['first_release_date']
-    
-    
+        summary = game_data['summary']
     
     game_obj = TempGame(title=game_data['name'],
                         summary=summary,
