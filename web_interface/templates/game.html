@@ -11,7 +11,7 @@
             var bookmarked = {{ bookmarked }};
             if (bookmarked){
                 $("button").hide();
-                $("small").html("{{ game_obj.title }} is bookmarked.");
+                $("span").html("{{ game_obj.title }} is bookmarked.");
             }
 
             $("button").click(function(){
@@ -30,7 +30,7 @@
                     },
                     function(data){ // function run if post is successful
                         $("button").hide();
-                        $("small").html("Bookmarked {{ game_obj.title }}!");
+                        $("span").html("Bookmarked {{ game_obj.title }}!");
                     });
                 }
             });
@@ -45,7 +45,7 @@
       <div><h1>{{ game_obj.title }}</h1></div>
       <div style="align-self:center">
         <button type="button">Bookmark {{ game_obj.title }}</button>
-        <p><small></small></p>
+        <small><span></span></small>
       </div>
     </div>
     
