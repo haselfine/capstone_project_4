@@ -51,7 +51,7 @@ def search_results():
 def game(igdb_id):
     
     # SQLite can only handle ints that can be stored in 64 bits
-    if str.isnumeric(igdb_id) and int(igdb_id) < 2**63:
+    if str.isnumeric(igdb_id) and int(igdb_id) < 2**31:
         
         game_obj = find_game_by_igdb_id(igdb_id)[0] # see if game is bookmarked
 
