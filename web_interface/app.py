@@ -9,6 +9,7 @@ from dataclasses import dataclass
 from view.game_API import *
 from view.image import *
 from viewmodel.viewmodel import *
+import logging
 
 app = Flask(__name__)
 client = os.environ.get('CLIENT_ID')
@@ -93,7 +94,7 @@ def delete_bookmark(game_id):
 
 def search_for_game(search_term):
     response = search_game_request(search_term)
-    
+    logging.info(response)
     if response[0] is not None: # check if there was an error message
         results = []
         for game in response[0]:
