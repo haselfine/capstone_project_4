@@ -41,9 +41,15 @@ def get_game_info(game_id):
     try:
         res = requests.post(url, data=body_data, headers = header_data)
         game_info = res.json()[0]
+        
+        if res.status_code == 200:
+            return game_info, None
+        
+        else:
+            return None, game_info['cause']
 
     except Exception as e:
         logging.error(e)
         return None, e
 
-    return game_info, None
+    
