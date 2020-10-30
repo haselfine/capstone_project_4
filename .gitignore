@@ -1,6 +1,7 @@
 env/
 twitch_auth
 *.pyc
-__pycache__
+__pycache__/
 debug.log
 games.sqlite
+.vscode/
