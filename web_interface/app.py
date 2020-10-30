@@ -111,11 +111,14 @@ def search_for_game(search_term):
 @cache.memoize(timeout=3600) #game page info cached for 1 hour
 def create_game_obj(igdb_id):
     game_details = get_game_info(igdb_id)[0]
-        
+    time_of_cache = datetime.datetime.now()
     if game_details is not None:
         game_obj = create_game(game_details, True)
+        logging.info(f'Cached game object at {time_of_cache}')
     return game_obj
 
 @cache.memoize(timeout=300) #current streamers cached for 5 minutes
 def get_streamers(twitch_id):
+    time_of_cache = datetime.datetime.now()
+    logging.info(f'Cached streamers at {time_of_cache}')
     return get_current_streamers(twitch_id)[0]
