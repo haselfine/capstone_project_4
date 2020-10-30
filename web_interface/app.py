@@ -49,19 +49,23 @@ def search_results():
 
 @app.route('/game/<igdb_id>')
 def game(igdb_id):
-    game_obj = find_game_by_igdb_id(igdb_id)[0] # see if game is bookmarked
-
-    if game_obj is None:
-        bookmarked = 'false'
-        game_obj = create_game_obj(igdb_id) #create game object from cached function
-    else:
-        bookmarked = 'true'
+    
+    # SQLite can only handle ints that can be stored in 64 bits
+    if str.isnumeric(igdb_id) and int(igdb_id) < 2**63:
         
-    if game_obj is not None:
-        active_streamers = get_streamers(game_obj.twitch_id) #get streamers from cached function
-        return render_template('game.html', game_obj=game_obj, bookmarked=bookmarked, active_streamers=active_streamers)
-    else:
-        return Response('<h1>404: Game not found</h1>', status=404)
+        game_obj = find_game_by_igdb_id(igdb_id)[0] # see if game is bookmarked
+
+        if game_obj is None:
+            bookmarked = 'false'
+            game_obj = create_game_obj(igdb_id) #create game object from cached function
+        else:
+            bookmarked = 'true'
+            
+        if game_obj is not None:
+            active_streamers = get_streamers(game_obj.twitch_id) #get streamers from cached function
+            return render_template('game.html', game_obj=game_obj, bookmarked=bookmarked, active_streamers=active_streamers)
+    
+    return Response('<h1>404: Game not found</h1>', status=404)
     
 
 @app.route('/bookmarks')

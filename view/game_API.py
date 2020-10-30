@@ -41,7 +41,6 @@ def get_game_info(game_id):
     try:
         res = requests.post(url, data=body_data, headers = header_data)
         game_info = res.json()[0]
-        print(game_info)
         
         if res.status_code == 200:
             return game_info, None
