@@ -4,3 +4,4 @@ twitch_auth
 __pycache__
 debug.log
 games.sqlite
+.vscode

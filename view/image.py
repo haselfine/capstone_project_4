@@ -16,10 +16,10 @@ def create_image_link(original_url):
     else:
         return None
 
-def make_it_small(igdb_url): #cloudinary uses the igdb url to resize the image... We can use this 25,000 times for free. Limit game results. And use cache
-    if len(cloudinary_id) > 0: #make sure it's the correct id
+def make_it_small(igdb_url): #cloudinary uses the igdb url to resize the image... Can be used to fetch 25,000 unique images for free.
+    if cloudinary_id is not None and len(cloudinary_id) > 0: #make sure it's the correct id
         cloudinary_url = f'https://res.cloudinary.com/{cloudinary_id}/image/fetch/w_300,f_auto/https://'
-        return cloudinary_url + igdb_url
+        return cloudinary_url + igdb_url #Cloudinary already caches images for the user, so implementing caching here is unnecessary. See https://support.cloudinary.com/hc/en-us/articles/207307269-For-how-long-does-Cloudinary-cache-my-delivered-content-on-the-CDN-
     else:
         error = ('Error', 'Need cloudinary ID')
         return None, error
