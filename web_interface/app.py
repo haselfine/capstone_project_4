@@ -97,6 +97,7 @@ def search_for_game(search_term):
     response = search_game_request(search_term)
     time_of_cache = datetime.datetime.now()
     logging.info(f'Cached search result at {time_of_cache}')
+
     if response[0] is not None: # check if there was an error message
         results = []
         for game in response[0]:

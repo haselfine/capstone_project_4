@@ -19,7 +19,7 @@ def search_game_request(game_name):
         res = requests.post(url, data = body_data, headers = header_data)
         game_list = res.json()
         
-        if 'message' not in game_list:  # failed searches will contain an error message
+        if game_list[0] != 'message':  # failed searches will contain an error message
             return game_list, None
         else:
             error = 'Search failed: ' + game_list['message']
