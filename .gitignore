@@ -1,5 +1,4 @@
 env/
-twitch_auth
 *.pyc
 __pycache__/
 debug.log
