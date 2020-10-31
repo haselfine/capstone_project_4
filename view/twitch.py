@@ -52,3 +52,16 @@ def get_current_streamers(twitch_id):
     except Exception as e:
         logging.error(e)
         return [], e
+
+def get_streamr_data_from_twitch(game_id):
+    url = f'https://api.twitch.tv/helix/streams?game_id={game_id}'
+    
+    header = {'Client-ID': client_id, 'Authorization': auth}
+    
+
+    try:
+        response = requests.get(url, headers= header)
+        jsondata = response.json()
+        return jsondata['data'][0]['user_name']
+    except Exception as e:
+        logging.error(f'Error checking user: ', e)
