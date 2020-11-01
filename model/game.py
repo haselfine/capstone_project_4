@@ -7,12 +7,12 @@ import ast
 class Game(BaseModel):
     
     game_id = AutoField(primary_key=True)
-    title = CharField(unique=True, constraints=[Check('length(title) >= 1'), Check('title is not null')])
+    title = CharField(unique=True, constraints=[Check('length(title) >= 1'), Check('title is not null')]) #title must be at least one character long and cannot be null
     summary = CharField(null=True)  # allow null values
     date_released = DateField(null=True)
     date_released_timestamp = TimestampField(null=True)
     rating = IntegerField(null=True)
-    image_url = CharField(unique=True)
+    image_url = CharField(unique=True) #can only have one image_url
     platforms = TextField()
     website_urls = TextField()
     igdb_id = IntegerField()

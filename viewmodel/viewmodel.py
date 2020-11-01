@@ -55,7 +55,7 @@ def create_game(game_data, from_api): # from_api indicates whether there is an i
                         twitch_id=get_twitch_game_id(game_data['name'])[0])
     return game_obj
 
-def find_game(title_in):
+def find_game(title_in): #search for game by title
     try:
         searched_game = Game.get_or_none(Game.title == title_in)
         return searched_game, None
