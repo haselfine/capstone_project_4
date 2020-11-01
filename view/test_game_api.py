@@ -4,39 +4,53 @@ from unittest.mock import patch
 import game_API
 
 
-example_api_response_game = ({'cover': {'id': 90046,
-            'url': '//images.igdb.com/igdb/image/upload/t_thumb/co1xha.jpg'},
-  'first_release_date': 1284422400,
-  'id': 990,
-  'name': 'Halo: Reach',
-  'platforms': [{'id': 6, 'name': 'PC (Microsoft Windows)'},
-                {'id': 12, 'name': 'Xbox 360'}],
-  'rating': 85.46384505686581,
-  'summary': 'Experience the story before the events of Halo: Combat Evolved '
-             'as you fight to defend the planet Reach from a harrowing '
-             'Covenant invasion. In this first-person shooter you can '
-             'customize your own Spartan with armor and accessories to '
-             'experience both a pulse-pounding campaign and addictive '
-             "multiplayer mode. Reach will fall, but it won't go down without "
-             'a fight.',
-  'websites': [{'id': 2990,
-                'url': 'https://www.halowaypoint.com/en-us/games/halo-reach/xbox-360'},
-               {'id': 6032, 'url': 'http://halo.wikia.com/wiki/Halo:_Reach'},
-               {'id': 6033, 'url': 'https://en.wikipedia.org/wiki/Halo:_Reach'},
-               {'id': 126894,
-                'url': 'https://store.steampowered.com/app/1064220/Halo_Reach/'}]},
- None)
+example_response_search_games =[{'id': 740, 'name': 'Halo: Combat Evolved'},
+ {'id': 6803, 'name': 'Halo 5: Guardians'},
+ {'id': 7348, 'name': 'Halo: The Master Chief Collection'},
+ {'id': 2640, 'name': 'Halo: Combat Evolved Anniversary'},
+ {'id': 45148, 'name': 'Halo 4: Limited Edition'},
+ {'id': 989, 'name': 'Halo 3: ODST'},
+ {'id': 991, 'name': 'Halo 4'},
+ {'id': 77343, 'name': 'Halo 4: King of the Hill Fueled by Mountain Dew'},
+ {'id': 103281, 'name': 'Halo Infinite'},
+ {'id': 987, 'name': 'Halo 3'}]
+
 
 class TestGameAPI(TestCase):
 
-    def test_specific_game_search_gets_correct_data(self):
 
-        example_game_id = 990
+    def test_search_games_game_not_found(self):
 
-        expected_data = example_api_response_game
+        example_search = 'gosajrpjepjfaljdpsa'
 
-        response_data = game_API.get_game_info(example_game_id)
+        response_data = game_API.search_game_request(example_search)
 
-        self.assertEqual(expected_data,response_data)
+        self.assertIsNotNone(response_data[1])
+
+    def test_search_games_correct_data(self):
+
+        example_search = 'halo'
+
+        response_data, error = game_API.search_game_request(example_search)
+
+        self.assertIsNone(error)
+        self.assertEqual(example_response_search_games, response_data)
+
+    def test_get_game_info_string_input(self):
+
+        example_search = 'lgjsldjf'
+
+        response_data, error = game_API.get_game_info(example_search)
+
+        self.assertIsNone(response_data)
+        self.assertEqual(error,('Expecting a STRING as input, surround your input with quotes starting at '
+ "'lgjsldjf' expecting {'{', 'f', '(', '[', 'true', 't', 'false', 'null', 'n'"))
+
+
+
+
+
+
+        
 
     
