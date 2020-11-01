@@ -44,7 +44,7 @@ def search_results():
     if results is not None and len(results) > 0:
         return render_template('home.html', search_term=search_term, list_heading='Search Results:', search_results=results)
     else:
-        return render_template('home.html', list_heading='No Results Found')
+        return render_template('home.html', list_heading='No Results Found. Make sure you are authorized.')
     
 
 @app.route('/game/<igdb_id>')
@@ -81,8 +81,12 @@ def bookmarks():
 @app.route('/add_bookmark', methods=['POST'])
 def add_bookmark():
     game_data = request.form.to_dict(True)
-    error = add_game(game_data, False)[1]
+    logging.info('Adding game to bookmark')
+    logging.debug(game_data)
     
+    error = add_game(game_data, False)[1]
+    logging.debug(error)
+
     if error is None:
         return Response('status_code: 201', status=201)
     else:
