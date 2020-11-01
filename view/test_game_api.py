@@ -18,7 +18,7 @@ example_response_search_games =[{'id': 740, 'name': 'Halo: Combat Evolved'},
 
 class TestGameAPI(TestCase):
 
-
+    # making a requrest where the game is not found and making sure that an error message is returned
     def test_search_games_game_not_found(self):
 
         example_search = 'gosajrpjepjfaljdpsa'
@@ -27,6 +27,7 @@ class TestGameAPI(TestCase):
 
         self.assertIsNotNone(response_data[1])
 
+    # testing the results of a correct search and making sure the proper data is returned
     def test_search_games_correct_data(self):
 
         example_search = 'halo'
@@ -36,6 +37,8 @@ class TestGameAPI(TestCase):
         self.assertIsNone(error)
         self.assertEqual(example_response_search_games, response_data)
 
+    # testing the results of trying to get a game but inputting a string instead of the int game code,
+    # making sure that the expected error is returned
     def test_get_game_info_string_input(self):
 
         example_search = 'lgjsldjf'
