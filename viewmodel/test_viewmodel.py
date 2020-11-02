@@ -45,3 +45,19 @@ class TestAddGame(TestCase):
         create_game_not_api = add_game(fake_game_data, False)
         self.assertIsNone(create_game[0])
         self.assertIsNone(create_game_not_api[0])
+
+class TestDeleteGame(TestCase):
+
+    def SetUp(self):
+        game.db.drop_tables(MODELS)
+        game.db.create_tables(MODELS)
+        # create_game = add_game(fake_game_data,True)
+
+    def test_delete_game_that_exists(self):
+
+        # create_game = add_game(fake_game_data,True)
+        temp_game = find_game_by_igdb_id(394)
+        print(temp_game)
+        delete = delete_game(394)
+        print(delete)
+        
