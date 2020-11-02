@@ -19,7 +19,7 @@ class Game(BaseModel):
     twitch_id = IntegerField(null=True) 
 
     def __str__(self):
-        return self.title 
+        return f'{self.game_id}, {self.title}, {self.summary}, {self.date_released}, {self.date_released_timestamp}, {self.rating}, {self.image_url}, {self.platforms}, {self.website_urls}, {self.igdb_id}, {self.twitch_id}'
     
     def get_platforms(self):
         return ast.literal_eval(self.platforms)

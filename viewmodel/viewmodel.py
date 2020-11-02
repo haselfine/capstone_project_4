@@ -7,6 +7,8 @@ from datetime import datetime
 
 def add_game(game_data, from_api):
     try:
+        if game_data is None:
+            return None, 'No game data'
         temp_game = create_game(game_data, from_api)
         temp_game.save()
         return 'Game saved.', None
