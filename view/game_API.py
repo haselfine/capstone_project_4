@@ -8,6 +8,10 @@ auth = os.environ.get('AUTHORIZATION')
 
 header_data = {'Client-ID': client_id, 'Authorization': auth}
 
+
+def main():
+    info = get_game_info(0)
+    print(info)
 #takes the game name input and returns a list of games with that name, and their id's.
 #If there was an error encouterd it will return "Failed" instead, if no games were found it will return an empty list
 def search_game_request(game_name):
@@ -53,3 +57,4 @@ def get_game_info(game_id):
         logging.error(e)
         return None, e
 
+main()
