@@ -3,6 +3,7 @@ import requests
 import logging
 from pprint import pprint
 
+
 client_id = os.environ.get('CLIENT_ID')
 auth = os.environ.get('AUTHORIZATION')
 
@@ -12,6 +13,9 @@ header_data = {'Client-ID': client_id, 'Authorization': auth}
 def main():
     info = get_game_info(0)
     print(info)
+    info2 = search_game_request('lgjdsoijfpdsjf;dsk')
+
+    # print(info2)
 #takes the game name input and returns a list of games with that name, and their id's.
 #If there was an error encouterd it will return "Failed" instead, if no games were found it will return an empty list
 def search_game_request(game_name):
@@ -22,6 +26,7 @@ def search_game_request(game_name):
     try:
         res = requests.post(url, data = body_data, headers = header_data)
         game_list = res.json()
+        print(game_list)
         
 
         if game_list[0] != 'message':  # failed searches will contain an error message
