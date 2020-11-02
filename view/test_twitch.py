@@ -10,8 +10,8 @@ class Testtwitch(TestCase):
     def test_user_input(self,twitch_id):
         self.assertTrue(twitch.get_current_streamers(twitch_id).isalnum)# test checking input is only number
 
-    @patch('twitch.get_current_streamers')# test checkin good data
-    def test_current_stream(self, mock_requests_json):
+    @patch('twitch.get_current_streamers')# test checkin good game id
+    def test_current_stream_by_ggod_id(self, mock_requests_json):
         mock_id = 417752
         example_api_response = {"data":{"game_id": mock_id}}
         mock_requests_json.return_value = example_api_response
@@ -19,8 +19,8 @@ class Testtwitch(TestCase):
         self.assertEqual(example_api_response,result)
 
 
-    @patch('twitch.get_current_streamers') # test checking bad data
-    def test_search_games_game_not_found(self,mock_requests_json):
+    @patch('twitch.get_current_streamers') # test checking bad game id
+    def test_current_stream_by_bad_game_id(self,mock_requests_json):
         mock_id = 'hhhhhhhhhh'
         example_api_response = {"data":{"game_id": mock_id}}
         mock_requests_json.return_value = example_api_response
