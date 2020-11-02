@@ -26,3 +26,11 @@ class Testtwitch(TestCase):
         mock_requests_json.return_value = example_api_response
         result = twitch.get_current_streamers(mock_id)
         self.assertNotEqual(result,mock_id)
+
+    
+    @patch('twitch.get_current_streamers')
+    def test_get_request_empty(self, mock_requests_get):
+        mock_requests_get.return_value.status_code = [] 
+        result = twitch.get_current_streamers()
+        self.assertNotEqual(result, [])
+ 
